@@ -2,31 +2,10 @@ import json
 import os
 
 import requests
-import yaml
+from utils import CONFIG_PATH, RAW_DATA_PATH, read_config
 
 
-CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
-CONFIG_PATH = os.path.abspath(os.path.join(CURRENT_PATH, "..", "config.yaml"))
-RAW_DATA_PATH = os.path.abspath(os.path.join(CURRENT_PATH, "..", "raw_data"))
 BASE_URL = "https://api.frankfurter.dev/v2/rates"
-
-def read_config(config_path: str) -> dict:
-    """
-    Baca file config YAML dan return sebagai dictionary
-    """
-    try:
-        with open(config_path, "r") as file:
-            config = yaml.safe_load(file)
-        
-        print("Berhasil membaca config")
-        return config
-    
-    except FileNotFoundError:
-        print(f"Error: File tidak ditemukan di {config_path}")
-        raise
-    except yaml.YAMLError as exc:
-        print(f"Error saat membaca file YAML: {exc}")
-        raise
 
 
 def extract_from_api(base_url: str, base_currency: str, quote_currency: str, date_from: str, date_to: str) -> dict | list | bool:
@@ -76,7 +55,7 @@ def save_to_json(data: dict, file_path: str):
         return False
 
 
-def run_pipeline(base_url: str, config_path: str, raw_data_path: str) -> bool:
+def run_extract(base_url: str, config_path: str, raw_data_path: str) -> bool:
     """
     Membaca config, extract data, lalu simpan file
     """
@@ -98,5 +77,6 @@ def run_pipeline(base_url: str, config_path: str, raw_data_path: str) -> bool:
         print("Gagal mengekstrak data")
         return False
 
+
 if __name__ == "__main__":
-    run_pipeline(BASE_URL, CONFIG_PATH, RAW_DATA_PATH)
+    run_extract(BASE_URL, CONFIG_PATH, RAW_DATA_PATH)
