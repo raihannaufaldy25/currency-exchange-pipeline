@@ -1,0 +1,16 @@
+#List currency
+currency:
+  base: "IDR"
+  quote:
+    - "USD"
+    - "SGD"
+    - "AUD"
+    - "JPY"
+    - "KRW"
+    - "MYR"
+
+#Date range
+date:
+  from: "2026-04-01"
+  to: "2026-06-30"
+
