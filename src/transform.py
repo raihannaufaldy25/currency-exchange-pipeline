@@ -8,7 +8,7 @@ from utils import RAW_DATA_PATH, CONFIG_PATH, PROCESSED_DATA_PATH, read_config
 config = read_config(CONFIG_PATH)
 
 
-def read_file(file_path: str) -> dict:
+def read_file(file_path: str) -> dict | list | bool:
     """
     Baca file json mentah dari folder raw_data
     """
@@ -60,14 +60,14 @@ def save_to_csv(df: pd.DataFrame, file_path: str) -> bool:
         return False
 
 
-def run_transform(processed_data_path: str):
+def run_transform(raw_data_path: str, processed_data_path: str) -> bool:
     """
     Baca file raw json, lakukan transformasi dan simpan ke csv
     """
     raw_file_name = f"rates_{config['date']['from']}_to_{config['date']['to']}.json"
-    raw_file_path = os.path.join(RAW_DATA_PATH, raw_file_name)
+    raw_file_path = os.path.join(raw_data_path, raw_file_name)
     df_file_name = f"rates_{config['date']['from']}_to_{config['date']['to']}.csv"
-    df_file_path = os.path.join(PROCESSED_DATA_PATH, df_file_name)
+    df_file_path = os.path.join(processed_data_path, df_file_name)
     data = read_file(raw_file_path)
     
     try:
@@ -79,9 +79,9 @@ def run_transform(processed_data_path: str):
             print("Gagal membaca file")
             return False
     except Exception as e:
-        print("Gagal melakukan transformasi pada data")
+        print(f"Gagal melakukan transformasi pada data {e}")
         return False
     
 
 if __name__ == "__main__":
-    run_transform(PROCESSED_DATA_PATH)
+    run_transform(RAW_DATA_PATH, PROCESSED_DATA_PATH)
