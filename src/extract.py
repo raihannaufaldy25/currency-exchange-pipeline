@@ -2,6 +2,7 @@ import json
 import os
 
 import requests
+
 from utils import CONFIG_PATH, RAW_DATA_PATH, read_config
 
 
