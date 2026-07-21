@@ -39,7 +39,7 @@ def extract_from_api(base_url: str, base_currency: str, quote_currency: str, dat
         return False
 
 
-def save_to_json(data: dict, file_path: str):
+def save_to_json(data: dict, file_path: str) -> bool:
     """
     Menyimpan data mentah hasil ekstrasi ke dalam json
     """
