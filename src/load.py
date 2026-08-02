@@ -16,7 +16,7 @@ def read_csv_file(file_path: str) -> pd.DataFrame | bool:
     Baca file CSV hasil transform, kembalikan sebagai DataFrame
     """
     try:
-        df = pd.read_csv(file_path)
+        df = pd.read_csv(file_path, parse_dates=["date"])
         print(f"Sukses membaca file dari: {file_path}")
         return df
     
